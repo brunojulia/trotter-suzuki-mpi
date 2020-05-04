@@ -347,8 +347,8 @@ void Solver::calculate_energy_expected_values(void) {
                                                    (grid->coordinate_system == "cylindrical" ? static_cast<Hamiltonian2Component*>(hamiltonian)->azimuthal_potential_b(j, state_b->angular_momentum) : 0.), 0.));
 
                 sum_intra_species_energy_1 += real(conj(psi_center_b) * psi_center_b * psi_center_b * conj(psi_center_b) * complex<double> (0.5 * coupling_b, 0.));
-                sum_inter_species_energy += real(conj(psi_center) * psi_center * conj(psi_center) * psi_center *
-                                                 conj(psi_center_b) * psi_center_b * conj(psi_center_b) * psi_center_b * complex<double> (coupling_ab));
+                sum_inter_species_energy += real(conj(psi_center) * psi_center *
+                                                 conj(psi_center_b) * psi_center_b * complex<double> (coupling_ab));
                 sum_rabi_energy += real(conj(psi_center) * psi_center * conj(psi_center_b) * psi_center_b * (conj(psi_center) * psi_center_b * omega +
                                         conj(psi_center_b * omega) * psi_center));
             }
@@ -546,7 +546,7 @@ void Solver::calculate_energy_expected_values(void) {
         rotational_energy[1] = rotational_energy[1] / norm2_kin[1];
         potential_energy[1] = potential_energy[1] / norm2[1];
         intra_species_energy[1] = intra_species_energy[1] / norm2[1];
-        inter_species_energy = inter_species_energy / (norm2[0] * norm2[1]);
+        inter_species_energy = inter_species_energy / sqrt(norm2[0] * norm2[1]);
         rabi_energy = rabi_energy / (norm2[0] * norm2[1]);
 
         total_energy = kinetic_energy[0] + potential_energy[0] + intra_species_energy[0] + rotational_energy[0] +
